@@ -125,17 +125,9 @@ update_facts(Input) :-
     retractall(facts:takeoff_runway_available(_)),
     assertz(facts:takeoff_runway_available(TakeoffRunwayAvailable)),
 
-    to_atom(Input.get(takeoffRunwayCondition), TakeoffRunwayCondition),
-    retractall(facts:takeoff_runway_condition(_)),
-    assertz(facts:takeoff_runway_condition(TakeoffRunwayCondition)),
-
     to_atom(Input.get(takeoffClearance), TakeoffClearance),
     retractall(facts:takeoff_clearance(_)),
     assertz(facts:takeoff_clearance(TakeoffClearance)),
-
-    to_atom(Input.get(takeoffConfiguration), TakeoffConfiguration),
-    retractall(facts:takeoff_configuration(_)),
-    assertz(facts:takeoff_configuration(TakeoffConfiguration)),
 
     to_atom(Input.get(landingRunwayAvailable), LandingRunwayAvailable),
     retractall(facts:landing_runway_available(_)),
@@ -152,24 +144,9 @@ update_facts(Input) :-
         )
     ),
 
-    retractall(facts:crosswind_speed(_)),
-    assertz(
-        facts:crosswind_speed(
-            Input.get(crosswindSpeed)
-        )
-    ),
-
     to_atom(Input.get(goAroundAvailable), GoAroundAvailable),
     retractall(facts:go_around_available(_)),
-    assertz(facts:go_around_available(GoAroundAvailable)),
-
-    to_atom(Input.get(weatherCondition), WeatherCondition),
-    retractall(facts:weather_condition(_)),
-    assertz(facts:weather_condition(WeatherCondition)),
-
-    to_atom(Input.get(visibilityCondition), VisibilityCondition),
-    retractall(facts:visibility_condition(_)),
-    assertz(facts:visibility_condition(VisibilityCondition)).
+    assertz(facts:go_around_available(GoAroundAvailable)).
 
 
 /*
