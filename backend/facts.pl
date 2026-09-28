@@ -22,18 +22,13 @@
     electrical_system/1,
 
     takeoff_runway_available/1,
-    takeoff_runway_condition/1,
     takeoff_clearance/1,
-    takeoff_configuration/1,
 
     landing_runway_available/1,
     landing_runway_condition/1,
     approach_speed/1,
-    crosswind_speed/1,
     go_around_available/1,
 
-    weather_condition/1,
-    visibility_condition/1,
     airport_condition/1,
     flight_phase/1
 ]).
@@ -52,18 +47,13 @@
 :- dynamic electrical_system/1.
 
 :- dynamic takeoff_runway_available/1.
-:- dynamic takeoff_runway_condition/1.
 :- dynamic takeoff_clearance/1.
-:- dynamic takeoff_configuration/1.
 
 :- dynamic landing_runway_available/1.
 :- dynamic landing_runway_condition/1.
 :- dynamic approach_speed/1.
-:- dynamic crosswind_speed/1.
 :- dynamic go_around_available/1.
 
-:- dynamic weather_condition/1.
-:- dynamic visibility_condition/1.
 :- dynamic airport_condition/1.
 :- dynamic flight_phase/1.
 
@@ -113,11 +103,7 @@ electrical_system(normal).
 
 takeoff_runway_available(yes).
 
-takeoff_runway_condition(dry).
-
 takeoff_clearance(yes).
-
-takeoff_configuration(configured).
 
 landing_runway_available(yes).
 
@@ -125,13 +111,7 @@ landing_runway_condition(dry).
 
 approach_speed(140).
 
-crosswind_speed(10).
-
 go_around_available(yes).
-
-weather_condition(normal).
-
-visibility_condition(good).
 
 airport_condition(normal).
 
