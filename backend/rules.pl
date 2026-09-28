@@ -19,19 +19,11 @@
     % Takeoff rules
     takeoff_runway_unavailable/0,
     takeoff_clearance_missing/0,
-    takeoff_configuration_invalid/0,
-    takeoff_runway_condition_poor/0,
 
     % Landing rules
     landing_runway_unavailable/0,
     approach_speed_above_reference/0,
-    approach_speed_below_reference/0,
-    crosswind_condition_high/0,
     landing_runway_condition_poor/0,
-
-    % Environmental rules
-    poor_visibility/0,
-    adverse_weather/0,
 
     % Decision rules
     departure_not_recommended/0,
@@ -141,14 +133,6 @@ takeoff_clearance_missing :-
     facts:takeoff_clearance(no).
 
 
-takeoff_configuration_invalid :-
-    facts:takeoff_configuration(not_configured).
-
-
-takeoff_runway_condition_poor :-
-    facts:takeoff_runway_condition(poor).
-
-
 /*
    ============================================================
    LANDING RULES
@@ -165,33 +149,8 @@ approach_speed_above_reference :-
     Speed > Reference.
 
 
-approach_speed_below_reference :-
-    facts:approach_speed(Speed),
-    facts:reference_final_approach_speed(Reference),
-    Speed < Reference.
-
-
-crosswind_condition_high :-
-    facts:crosswind_speed(Speed),
-    Speed >= 20.
-
-
 landing_runway_condition_poor :-
     facts:landing_runway_condition(poor).
-
-
-/*
-   ============================================================
-   ENVIRONMENT RULES
-   ============================================================
-*/
-
-poor_visibility :-
-    facts:visibility_condition(poor).
-
-
-adverse_weather :-
-    facts:weather_condition(adverse).
 
 
 /*
@@ -217,18 +176,6 @@ departure_not_recommended :-
 
 departure_not_recommended :-
     takeoff_clearance_missing.
-
-departure_not_recommended :-
-    takeoff_configuration_invalid.
-
-departure_not_recommended :-
-    takeoff_runway_condition_poor.
-
-departure_not_recommended :-
-    adverse_weather.
-
-departure_not_recommended :-
-    poor_visibility.
 
 
 /*
@@ -258,18 +205,6 @@ landing_not_recommended :-
 
 go_around_recommended :-
     approach_speed_above_reference,
-    facts:go_around_available(yes).
-
-go_around_recommended :-
-    approach_speed_below_reference,
-    facts:go_around_available(yes).
-
-go_around_recommended :-
-    crosswind_condition_high,
-    facts:go_around_available(yes).
-
-go_around_recommended :-
-    poor_visibility,
     facts:go_around_available(yes).
 
 
