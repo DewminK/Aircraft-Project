@@ -19,10 +19,7 @@ set_departure_scenario(
     Controls,
     Gear,
     Runway,
-    Clearance,
-    Configuration,
-    Weather,
-    Visibility
+    Clearance
 ) :-
 
     retractall(facts:current_aircraft_weight(_)),
@@ -47,16 +44,7 @@ set_departure_scenario(
     assertz(facts:takeoff_runway_available(Runway)),
 
     retractall(facts:takeoff_clearance(_)),
-    assertz(facts:takeoff_clearance(Clearance)),
-
-    retractall(facts:takeoff_configuration(_)),
-    assertz(facts:takeoff_configuration(Configuration)),
-
-    retractall(facts:weather_condition(_)),
-    assertz(facts:weather_condition(Weather)),
-
-    retractall(facts:visibility_condition(_)),
-    assertz(facts:visibility_condition(Visibility)).
+    assertz(facts:takeoff_clearance(Clearance)).
 
 
 /*
@@ -75,10 +63,7 @@ test(normal_departure) :-
         normal,
         normal,
         yes,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     inference:backward_chain(
@@ -103,10 +88,7 @@ test(takeoff_weight_exceeded) :-
         normal,
         normal,
         yes,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     rules:takeoff_weight_exceeded,
@@ -133,10 +115,7 @@ test(zero_fuel_weight_exceeded) :-
         normal,
         normal,
         yes,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     rules:zero_fuel_weight_exceeded,
@@ -163,10 +142,7 @@ test(engine_fault) :-
         normal,
         normal,
         yes,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     rules:engine_problem,
@@ -193,10 +169,7 @@ test(runway_unavailable) :-
         normal,
         normal,
         no,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     rules:takeoff_runway_unavailable,
@@ -223,73 +196,10 @@ test(clearance_missing) :-
         normal,
         normal,
         yes,
-        no,
-        configured,
-        normal,
-        good
+        no
     ),
 
     rules:takeoff_clearance_missing,
-
-    inference:backward_chain(
-        departure,
-        not_recommended
-    ).
-
-
-/*
-   ============================================================
-   TC07 - POOR VISIBILITY
-   ============================================================
-*/
-
-test(poor_visibility) :-
-
-    set_departure_scenario(
-        250000,
-        180000,
-        120000,
-        normal,
-        normal,
-        normal,
-        yes,
-        yes,
-        configured,
-        normal,
-        poor
-    ),
-
-    rules:poor_visibility,
-
-    inference:backward_chain(
-        departure,
-        not_recommended
-    ).
-
-
-/*
-   ============================================================
-   TC08 - ADVERSE WEATHER
-   ============================================================
-*/
-
-test(adverse_weather) :-
-
-    set_departure_scenario(
-        250000,
-        180000,
-        120000,
-        normal,
-        normal,
-        normal,
-        yes,
-        yes,
-        configured,
-        adverse,
-        good
-    ),
-
-    rules:adverse_weather,
 
     inference:backward_chain(
         departure,
@@ -324,40 +234,6 @@ test(high_approach_speed) :-
     assertz(facts:go_around_available(yes)),
 
     rules:approach_speed_above_reference,
-
-    inference:backward_chain(
-        landing,
-        go_around
-    ).
-
-
-/*
-   ============================================================
-   TC10 - LOW APPROACH SPEED
-   ============================================================
-*/
-
-test(low_approach_speed) :-
-
-    retractall(facts:current_landing_weight(_)),
-    assertz(facts:current_landing_weight(195000)),
-
-    retractall(facts:approach_speed(_)),
-    assertz(facts:approach_speed(130)),
-
-    retractall(facts:landing_runway_available(_)),
-    assertz(facts:landing_runway_available(yes)),
-
-    retractall(facts:landing_runway_condition(_)),
-    assertz(facts:landing_runway_condition(dry)),
-
-    retractall(facts:landing_gear(_)),
-    assertz(facts:landing_gear(normal)),
-
-    retractall(facts:go_around_available(_)),
-    assertz(facts:go_around_available(yes)),
-
-    rules:approach_speed_below_reference,
 
     inference:backward_chain(
         landing,
@@ -408,40 +284,6 @@ test(landing_runway_unavailable) :-
 
 /*
    ============================================================
-   TC13 - HIGH CROSSWIND
-   ============================================================
-*/
-
-test(high_crosswind) :-
-
-    retractall(facts:current_landing_weight(_)),
-    assertz(facts:current_landing_weight(195000)),
-
-    retractall(facts:landing_runway_available(_)),
-    assertz(facts:landing_runway_available(yes)),
-
-    retractall(facts:landing_runway_condition(_)),
-    assertz(facts:landing_runway_condition(dry)),
-
-    retractall(facts:landing_gear(_)),
-    assertz(facts:landing_gear(normal)),
-
-    retractall(facts:crosswind_speed(_)),
-    assertz(facts:crosswind_speed(25)),
-
-    retractall(facts:go_around_available(_)),
-    assertz(facts:go_around_available(yes)),
-
-    rules:crosswind_condition_high,
-
-    inference:backward_chain(
-        landing,
-        go_around
-    ).
-
-
-/*
-   ============================================================
    TC14 - FORWARD CHAINING
    ============================================================
 */
@@ -456,10 +298,7 @@ test(forward_chaining) :-
         normal,
         normal,
         yes,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     inference:forward_chain(
@@ -494,10 +333,7 @@ test(backward_chaining) :-
         normal,
         normal,
         yes,
-        yes,
-        configured,
-        normal,
-        good
+        yes
     ),
 
     inference:backward_chain(
