@@ -80,18 +80,6 @@ departure_fact(takeoff_runway_unavailable) :-
 departure_fact(takeoff_clearance_missing) :-
     rules:takeoff_clearance_missing.
 
-departure_fact(takeoff_configuration_invalid) :-
-    rules:takeoff_configuration_invalid.
-
-departure_fact(takeoff_runway_condition_poor) :-
-    rules:takeoff_runway_condition_poor.
-
-departure_fact(poor_visibility) :-
-    rules:poor_visibility.
-
-departure_fact(adverse_weather) :-
-    rules:adverse_weather.
-
 departure_fact(departure_not_recommended) :-
     rules:departure_not_recommended.
 
@@ -116,15 +104,6 @@ landing_fact(landing_runway_condition_poor) :-
 
 landing_fact(approach_speed_above_reference) :-
     rules:approach_speed_above_reference.
-
-landing_fact(approach_speed_below_reference) :-
-    rules:approach_speed_below_reference.
-
-landing_fact(crosswind_condition_high) :-
-    rules:crosswind_condition_high.
-
-landing_fact(poor_visibility) :-
-    rules:poor_visibility.
 
 landing_fact(go_around_recommended) :-
     rules:go_around_recommended.
