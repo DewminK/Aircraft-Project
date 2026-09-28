@@ -55,30 +55,6 @@ departure_reason(
 
 
 departure_reason(
-    'The aircraft is not in the configured takeoff configuration.'
-) :-
-    rules:takeoff_configuration_invalid.
-
-
-departure_reason(
-    'The configured runway condition is poor.'
-) :-
-    rules:takeoff_runway_condition_poor.
-
-
-departure_reason(
-    'The configured weather condition is adverse.'
-) :-
-    rules:adverse_weather.
-
-
-departure_reason(
-    'The configured visibility condition is poor.'
-) :-
-    rules:poor_visibility.
-
-
-departure_reason(
     'All checked departure conditions satisfy the configured rules.'
 ) :-
     \+ rules:departure_not_recommended.
@@ -124,24 +100,6 @@ landing_reason(
     'The approach speed is above the documented reference approach speed.'
 ) :-
     rules:approach_speed_above_reference.
-
-
-landing_reason(
-    'The approach speed is below the documented reference approach speed.'
-) :-
-    rules:approach_speed_below_reference.
-
-
-landing_reason(
-    'The configured crosswind condition has reached the educational warning threshold.'
-) :-
-    rules:crosswind_condition_high.
-
-
-landing_reason(
-    'The configured visibility condition is poor.'
-) :-
-    rules:poor_visibility.
 
 
 landing_reason(
