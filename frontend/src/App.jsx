@@ -18,18 +18,12 @@ const DEFAULT_FORM = {
   electricalSystem: 'normal',
 
   takeoffRunwayAvailable: 'yes',
-  takeoffRunwayCondition: 'dry',
   takeoffClearance: 'yes',
-  takeoffConfiguration: 'configured',
 
   landingRunwayAvailable: 'yes',
   landingRunwayCondition: 'dry',
   approachSpeed: 140,
-  crosswindSpeed: 10,
   goAroundAvailable: 'yes',
-
-  weatherCondition: 'normal',
-  visibilityCondition: 'good',
 }
 
 const NUMBER_FIELDS = new Set([
@@ -38,7 +32,6 @@ const NUMBER_FIELDS = new Set([
   'zeroFuelWeight',
   'fuelQuantity',
   'approachSpeed',
-  'crosswindSpeed',
 ])
 
 const STATUS_OPTIONS = ['normal', 'fault']
@@ -186,9 +179,7 @@ function App() {
             <legend>Takeoff</legend>
             <div className="grid">
               <Field label="Runway available" name="takeoffRunwayAvailable" value={form.takeoffRunwayAvailable} onChange={handleChange} options={YES_NO_OPTIONS} />
-              <Field label="Runway condition" name="takeoffRunwayCondition" value={form.takeoffRunwayCondition} onChange={handleChange} options={['dry', 'poor']} />
               <Field label="Takeoff clearance" name="takeoffClearance" value={form.takeoffClearance} onChange={handleChange} options={YES_NO_OPTIONS} />
-              <Field label="Configuration" name="takeoffConfiguration" value={form.takeoffConfiguration} onChange={handleChange} options={['configured', 'not_configured']} />
             </div>
           </fieldset>
         )}
@@ -200,19 +191,10 @@ function App() {
               <Field label="Runway available" name="landingRunwayAvailable" value={form.landingRunwayAvailable} onChange={handleChange} options={YES_NO_OPTIONS} />
               <Field label="Runway condition" name="landingRunwayCondition" value={form.landingRunwayCondition} onChange={handleChange} options={['dry', 'poor']} />
               <Field type="number" label="Approach speed (kt)" name="approachSpeed" value={form.approachSpeed} onChange={handleChange} />
-              <Field type="number" label="Crosswind speed (kt)" name="crosswindSpeed" value={form.crosswindSpeed} onChange={handleChange} />
               <Field label="Go-around available" name="goAroundAvailable" value={form.goAroundAvailable} onChange={handleChange} options={YES_NO_OPTIONS} />
             </div>
           </fieldset>
         )}
-
-        <fieldset>
-          <legend>Environment</legend>
-          <div className="grid">
-            <Field label="Weather condition" name="weatherCondition" value={form.weatherCondition} onChange={handleChange} options={['normal', 'adverse']} />
-            <Field label="Visibility condition" name="visibilityCondition" value={form.visibilityCondition} onChange={handleChange} options={['good', 'poor']} />
-          </div>
-        </fieldset>
 
         <div className="actions">
           <button type="submit" disabled={loading}>
